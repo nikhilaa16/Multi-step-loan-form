@@ -1,5 +1,6 @@
 import { Button, Input, Radio, RadioGroup, Select, SelectItem } from '@heroui/react';
-import { Controller, useSmartStepper } from 'smartstepper';
+import { useSmartStepper } from 'smartstepper';
+import { Controller } from 'react-hook-form';
 import { formatIndianCurrency } from './utils';
 import { useEffect } from 'react';
 
@@ -47,17 +48,26 @@ export default function Step1BasicInfo() {
   // Tenure options depending on Loan Type
   const getTenureOptions = () => {
     if (loanType === 'personal') {
-      return [12, 24, 36, 48, 60].map((m) => ({ label: `${m} Months (${m / 12} Years)`, value: String(m) }));
+      return [12, 24, 36, 48, 60].map((m) => ({
+        label: `${m} Months (${m / 12} Years)`,
+        value: String(m),
+      }));
     }
+
     if (loanType === 'home') {
-      return [60, 120, 180, 240, 300, 360].map((m) => ({ label: `${m} Months (${m / 12} Years)`, value: String(m) }));
+      return [60, 120, 180, 240, 300, 360].map((m) => ({
+        label: `${m} Months (${m / 12} Years)`,
+        value: String(m),
+      }));
     }
+
     if (loanType === 'business') {
       return [12, 24, 36, 48, 60, 72, 84, 96, 108, 120].map((m) => ({
         label: `${m} Months (${m / 12} Years)`,
         value: String(m),
       }));
     }
+
     return [];
   };
 
@@ -65,13 +75,17 @@ export default function Step1BasicInfo() {
     if (loanType === 'personal') return 'Min: ₹50,000 | Max: ₹10,00,000';
     if (loanType === 'home') return 'Min: ₹50,000 | Max: ₹1,00,00,000';
     if (loanType === 'business') return 'Min: ₹50,000 | Max: ₹50,00,000';
+
     return '';
   };
 
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold text-slate-800">Select Loan Type & Amount</h2>
+        <h2 className="text-2xl font-bold text-slate-800">
+          Select Loan Type & Amount
+        </h2>
+
         <p className="text-sm text-slate-500 mt-1">
           Select the type of loan you wish to apply for and indicate your desired amount.
         </p>
@@ -94,29 +108,40 @@ export default function Step1BasicInfo() {
             <Radio
               value="personal"
               classNames={{
-                wrapper: 'border-2 border-slate-200 rounded-xl p-4 flex flex-col items-start gap-1 cursor-pointer w-full hover:border-blue-500',
+                wrapper:
+                  'border-2 border-slate-200 rounded-xl p-4 flex flex-col items-start gap-1 cursor-pointer w-full hover:border-blue-500',
               }}
               description="Max ₹10 Lakhs | 12-60 months"
             >
-              <span className="font-semibold text-slate-700">Personal Loan</span>
+              <span className="font-semibold text-slate-700">
+                Personal Loan
+              </span>
             </Radio>
+
             <Radio
               value="home"
               classNames={{
-                wrapper: 'border-2 border-slate-200 rounded-xl p-4 flex flex-col items-start gap-1 cursor-pointer w-full hover:border-blue-500',
+                wrapper:
+                  'border-2 border-slate-200 rounded-xl p-4 flex flex-col items-start gap-1 cursor-pointer w-full hover:border-blue-500',
               }}
               description="Max ₹1 Crore | 60-360 months"
             >
-              <span className="font-semibold text-slate-700">Home Loan</span>
+              <span className="font-semibold text-slate-700">
+                Home Loan
+              </span>
             </Radio>
+
             <Radio
               value="business"
               classNames={{
-                wrapper: 'border-2 border-slate-200 rounded-xl p-4 flex flex-col items-start gap-1 cursor-pointer w-full hover:border-blue-500',
+                wrapper:
+                  'border-2 border-slate-200 rounded-xl p-4 flex flex-col items-start gap-1 cursor-pointer w-full hover:border-blue-500',
               }}
               description="Max ₹50 Lakhs | 12-120 months"
             >
-              <span className="font-semibold text-slate-700">Business Loan</span>
+              <span className="font-semibold text-slate-700">
+                Business Loan
+              </span>
             </Radio>
           </RadioGroup>
         )}
@@ -124,6 +149,7 @@ export default function Step1BasicInfo() {
 
       {loanType && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
           <div className="space-y-2">
             <Controller
               name="loanAmount"
@@ -139,17 +165,26 @@ export default function Step1BasicInfo() {
                     description={getAmountLimitsText()}
                     isInvalid={!!fieldState.error}
                     errorMessage={fieldState.error?.message}
-                    startContent={<span className="text-slate-400 font-semibold">₹</span>}
+                    startContent={
+                      <span className="text-slate-400 font-semibold">
+                        ₹
+                      </span>
+                    }
                     classNames={{
                       input: 'text-base font-semibold text-slate-800',
-                      inputWrapper: 'h-12 border-slate-200 focus-within:border-blue-500',
+                      inputWrapper:
+                        'h-12 border-slate-200 focus-within:border-blue-500',
                     }}
                   />
-                  {loanAmount && !isNaN(Number(loanAmount)) && Number(loanAmount) >= 50000 && (
-                    <div className="mt-2 text-sm text-green-600 font-medium">
-                      In Words: {formatIndianCurrency(Number(loanAmount))}
-                    </div>
-                  )}
+
+                  {loanAmount &&
+                    !isNaN(Number(loanAmount)) &&
+                    Number(loanAmount) >= 50000 && (
+                      <div className="mt-2 text-sm text-green-600 font-medium">
+                        In Words:{' '}
+                        {formatIndianCurrency(Number(loanAmount))}
+                      </div>
+                    )}
                 </div>
               )}
             />
@@ -172,7 +207,8 @@ export default function Step1BasicInfo() {
                 isInvalid={!!fieldState.error}
                 errorMessage={fieldState.error?.message}
                 classNames={{
-                  trigger: 'h-12 border-slate-200 focus-within:border-blue-500',
+                  trigger:
+                    'h-12 border-slate-200 focus-within:border-blue-500',
                 }}
               >
                 {getTenureOptions().map((opt) => (
@@ -201,7 +237,8 @@ export default function Step1BasicInfo() {
                 isInvalid={!!fieldState.error}
                 errorMessage={fieldState.error?.message}
                 classNames={{
-                  trigger: 'h-12 border-slate-200 focus-within:border-blue-500',
+                  trigger:
+                    'h-12 border-slate-200 focus-within:border-blue-500',
                 }}
               >
                 {(purposeOptions[loanType] || []).map((opt) => (
@@ -226,7 +263,8 @@ export default function Step1BasicInfo() {
                 errorMessage={fieldState.error?.message}
                 classNames={{
                   input: 'text-base text-slate-800',
-                  inputWrapper: 'h-12 border-slate-200 focus-within:border-blue-500',
+                  inputWrapper:
+                    'h-12 border-slate-200 focus-within:border-blue-500',
                 }}
               />
             )}
