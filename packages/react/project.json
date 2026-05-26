@@ -54,7 +54,7 @@
       "dependsOn": [
         "prebuild"
       ],
-      "command": "cp packages/react/*.md dist/packages/react"
+      "command": "node -e \"const fs = require('fs'); const path = require('path'); fs.mkdirSync('dist/packages/react', { recursive: true }); fs.readdirSync('packages/react').filter(f => f.endsWith('.md')).forEach(f => fs.copyFileSync(path.join('packages/react', f), path.join('dist/packages/react', f)))\""
     }
   }
 }

@@ -132,10 +132,13 @@ const SmartStepper = <S extends string>({ config }: SmartStepperProps<S>) => {
     return [];
   }, [step, config.validations]);
 
-  const handleNextStep = async () => {
+  const handleNextStep = async (targetStepName?: S, unregisterFields = false) => {
     const isValid = await trigger(currentStepSchemaFields);
     if (!isValid) return;
-    const next = config.orchestration[step]?.next?.(getValues());
+    if (unregisterFields) {
+      unregister(currentStepSchemaFields);
+    }
+    const next = targetStepName || config.orchestration[step]?.next?.(getValues());
     if (next) {
       setHistoryStack((prev) => [...prev, step]);
       setStep(next);
