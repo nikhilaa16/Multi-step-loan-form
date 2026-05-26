@@ -70,9 +70,10 @@ export default function Step5EmploymentIncome() {
                 value="salaried"
                 disabled={isBusinessLoan}
                 classNames={{
-                  wrapper: `border-2 border-slate-200 rounded-xl p-4 flex flex-col items-start gap-1 cursor-pointer w-full hover:border-blue-500 ${
+                  base: `flex flex-row items-center border-2 border-slate-200 rounded-2xl p-4 gap-3 cursor-pointer w-full hover:border-blue-500 data-[selected=true]:border-blue-600 data-[selected=true]:bg-blue-50/20 max-w-full m-0 ${
                     isBusinessLoan ? 'opacity-50 cursor-not-allowed bg-slate-100' : ''
                   }`,
+                  wrapper: 'shrink-0',
                 }}
                 description={isBusinessLoan ? 'Not allowed for Business Loans' : 'Regular salary from employer'}
               >
@@ -81,7 +82,8 @@ export default function Step5EmploymentIncome() {
               <Radio
                 value="self-employed"
                 classNames={{
-                  wrapper: 'border-2 border-slate-200 rounded-xl p-4 flex flex-col items-start gap-1 cursor-pointer w-full hover:border-blue-500',
+                  base: 'flex flex-row items-center border-2 border-slate-200 rounded-2xl p-4 gap-3 cursor-pointer w-full hover:border-blue-500 data-[selected=true]:border-blue-600 data-[selected=true]:bg-blue-50/20 max-w-full m-0',
+                  wrapper: 'shrink-0',
                 }}
                 description="Freelancers, Professionals"
               >
@@ -90,7 +92,8 @@ export default function Step5EmploymentIncome() {
               <Radio
                 value="business-owner"
                 classNames={{
-                  wrapper: 'border-2 border-slate-200 rounded-xl p-4 flex flex-col items-start gap-1 cursor-pointer w-full hover:border-blue-500',
+                  base: 'flex flex-row items-center border-2 border-slate-200 rounded-2xl p-4 gap-3 cursor-pointer w-full hover:border-blue-500 data-[selected=true]:border-blue-600 data-[selected=true]:bg-blue-50/20 max-w-full m-0',
+                  wrapper: 'shrink-0',
                 }}
                 description="Owns registered business / firm"
               >
